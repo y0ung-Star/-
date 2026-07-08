@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "0K2Ji4YgOcVTnqB9a+UzC7K2HnNb+J7UZiPLBFCuFdKx6B52qrOAMOCZ8FOXKY3Co3l0KpD23G1QSgTY2bqpNg==",
+  "success": true,
+  "projectFilePath": "/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/f#/helloapp/helloapp.fsproj",
+  "expectedPackageFiles": [
+    "/home/swrneko/.nuget/packages/fsharp.core/8.0.102/fsharp.core.8.0.102.nupkg.sha512",
+    "/home/swrneko/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.10/microsoft.aspnetcore.app.ref.8.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}

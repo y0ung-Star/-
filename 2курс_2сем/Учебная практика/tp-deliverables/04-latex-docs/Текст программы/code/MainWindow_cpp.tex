@@ -1,0 +1,123 @@
+\section{Исходный код файла \texttt{MainWindow.cpp}}
+\infoGen{Егоров Александр Владиславович}{swrneko@mai.education}
+\footnotesize
+\begin{listing}{1}
+/****************************************************************
+*                     КАФЕДРА № 304 2 КУРС                       *
+*---------------------------------------------------------------*
+* Project Type  : Qt Widgets Desktop Application                *
+* Project Name  : FieldViz                                      *
+* File Name     : MainWindow.cpp                                 *
+* Language      : C/C++ (C++17)                                  *
+* Programmer(s) : Егоров А.В. (swrneko)                          *
+* Modifyed By   : Егоров А.В. (swrneko)                          *
+* Edited by     : Neovim                                         *
+* OS            : Arch Linux                                     *
+* Created       : 01/07/26                                       *
+* Last Revision : 01/07/26                                       *
+* Comment(s)    : Реализация логики главного окна приложения.    *
+****************************************************************/
+
+#include "MainWindow.h"
+#include <QCheckBox>
+#include <QPushButton>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGroupBox>
+
+/****************************************
+* Конструктор главного окна             *
+****************************************/
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+  setWindowTitle("КБН Портал: Визуализатор полей (Вариант 5)"); // Установка заголовка
+  resize(850, 600); // Базовый размер окна
+
+  setupUi(); // Инициализация интерфейса
+}
+
+/****************************************
+* Инициализация элементов интерфейса    *
+****************************************/
+void MainWindow::setupUi() {
+  QWidget *centralWidget = new QWidget(this); // Главный виджет
+  setCentralWidget(centralWidget); // Установка
+
+  QHBoxLayout *mainLayout = new QHBoxLayout(centralWidget); // Главный горизонтальный компоновщик
+
+  m_visualizer = new Visualizer(this); // Создание 3D-сцены
+  mainLayout->addWidget(m_visualizer, 3); // Добавление с весом 3
+
+  QVBoxLayout *sidebar = new QVBoxLayout(); // Вертикальный компоновщик сайдбара
+  mainLayout->addLayout(sidebar, 1); // Добавление с весом 1
+
+  // Секция 1: Управление видимостью
+  QGroupBox *grpControls = new QGroupBox("Отображение объектов", this); // Группа
+  QVBoxLayout *ctrlLayout = new QVBoxLayout(grpControls); // Компоновщик группы
+
+  m_chkFieldLines = new QCheckBox("Силовые линии поля a", this); // Чекбокс линий
+  m_chkFieldLines->setChecked(true); // Включен
+  connect(m_chkFieldLines, &QCheckBox::toggled, this, &MainWindow::onFieldLinesToggled); // Сигнал
+  ctrlLayout->addWidget(m_chkFieldLines); // Добавление
+
+  m_chkEquipotentials = new QCheckBox("Эквипотенциали поля b", this); // Чекбокс эквипотенциалей
+  m_chkEquipotentials->setChecked(true); // Включен
+  connect(m_chkEquipotentials, &QCheckBox::toggled, this, &MainWindow::onEquipotentialsToggled); // Сигнал
+  ctrlLayout->addWidget(m_chkEquipotentials); // Добавление
+
+  m_btnResetCamera = new QPushButton("Сбросить камеру", this); // Кнопка сброса
+  connect(m_btnResetCamera, &QPushButton::clicked, this, &MainWindow::onResetCameraClicked); // Сигнал
+  ctrlLayout->addWidget(m_btnResetCamera); // Добавление
+
+  sidebar->addWidget(grpControls); // Добавление группы в сайдбар
+
+  // Секция 2: Информационная панель (Solver)
+  QGroupBox *grpInfo = new QGroupBox("Аналитический расчёт", this); // Группа
+  QVBoxLayout *infoLayout = new QVBoxLayout(grpInfo); // Компоновщик
+
+  m_lblInfoPanel = new QLabel(this); // Текстовая метка
+  m_lblInfoPanel->setTextFormat(Qt::RichText); // Поддержка HTML
+  m_lblInfoPanel->setWordWrap(true); // Перенос строк
+  m_lblInfoPanel->setAlignment(Qt::AlignTop | Qt::AlignLeft); // Выравнивание
+
+  m_lblInfoPanel->setText(
+    "<b>Разработчик:</b><br>"
+    "Егоров А.В. (М3О-225БВ-24)<br><br>"
+    "<b>Индивидуальный вариант 5:</b><br>"
+    "• Сфера S (1-й октант)<br><br>"
+    "<b>Поле a (Соленоидальное):</b><br>"
+    "<i>a = y²i + z²j + x²k</i><br>"
+    "• div a = 0, rot a &ne; 0<br>"
+    "• Поток P = 3&pi;/16 &approx; 0.5890<br>"
+    "• Циркуляция C = -2<br><br>"
+    "<b>Поле b (Потенциальное):</b><br>"
+    "<i>b = (2xy³z+y)i + ...</i><br>"
+    "• rot b = 0<br>"
+    "• Потенциал U = xy + x²y³z + z⁴<br>"
+    "• Работа W (O &rarr; M) = 3"
+  ); // HTML Текст
+
+  infoLayout->addWidget(m_lblInfoPanel); // Добавление в группу
+  sidebar->addWidget(grpInfo); // Добавление группы в сайдбар
+
+  sidebar->addStretch(); // Растяжка для прижатия кверху
+}
+
+/****************************************
+* Обработчики сигналов управления       *
+****************************************/
+void MainWindow::onFieldLinesToggled(bool checked) {
+  m_visualizer->setShowFieldLines(checked); // Переключение линий
+}
+
+void MainWindow::onEquipotentialsToggled(bool checked) {
+  m_visualizer->setShowEquipotentials(checked); // Переключение эквипотенциалей
+}
+
+void MainWindow::onResetCameraClicked() {
+  m_visualizer->resetCamera(); // Сброс камеры
+}
+
+\end{listing}
+\normalsize
+\pagebreak

@@ -1,0 +1,5 @@
+\babel@toc {russian}{}\relax 
+\beamer@sectionintoc {1}{ГОСТ 19.502-78: Описание применения}{3}{0}{1}
+\beamer@sectionintoc {2}{ГОСТ 19.005-85: Схемы алгоритмов}{5}{0}{2}
+\beamer@sectionintoc {3}{Формализация задачи (Вариант 5)}{7}{0}{3}
+\beamer@sectionintoc {4}{Работа с библиотечным фондом}{10}{0}{4}

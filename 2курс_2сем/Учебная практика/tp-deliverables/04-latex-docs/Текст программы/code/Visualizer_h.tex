@@ -1,0 +1,85 @@
+\section{Исходный код файла \texttt{Visualizer.h}}
+\infoGen{Егоров Александр Владиславович}{swrneko@mai.education}
+\footnotesize
+\begin{listing}{1}
+/****************************************************************
+*                     КАФЕДРА № 304 2 КУРС                       *
+*---------------------------------------------------------------*
+* Project Type  : Qt Widgets Desktop Application                *
+* Project Name  : FieldViz                                      *
+* File Name     : Visualizer.h                                   *
+* Language      : C/C++ (C++17)                                  *
+* Programmer(s) : Егоров А.В. (swrneko)                          *
+* Modifyed By   : Егоров А.В. (swrneko)                          *
+* Edited by     : Neovim                                         *
+* OS            : Arch Linux                                     *
+* Created       : 01/07/26                                       *
+* Last Revision : 01/07/26                                       *
+* Comment(s)    : Виджет 3D визуализации полей.                  *
+****************************************************************/
+
+#ifndef VISUALIZER_H
+#define VISUALIZER_H
+
+#include <QWidget>
+#include <QPoint>
+#include <vector>
+#include "FieldMath.h"
+
+/****************************************************************
+* Класс виджета визуализации полей и эквипотенциалей            *
+****************************************************************/
+class Visualizer : public QWidget {
+  Q_OBJECT
+public:
+  // Конструктор виджета
+  explicit Visualizer(QWidget *parent = nullptr);
+
+  // Установка отрисовки силовых линий
+  void setShowFieldLines(bool show);
+
+  // Установка отрисовки эквипотенциалей
+  void setShowEquipotentials(bool show);
+
+  // Сброс камеры в дефолтное положение
+  void resetCamera();
+
+protected:
+  // Переопределение события рисования
+  void paintEvent(QPaintEvent *event) override;
+
+  // Переопределения мыши для вращения сцены
+  void mousePressEvent(QMouseEvent *event) override;
+  void mouseMoveEvent(QMouseEvent *event) override;
+  void wheelEvent(QWheelEvent *event) override;
+
+private:
+  double m_yaw;   // Угол поворота вокруг оси Z (в градусах)
+  double m_pitch; // Угол поворота вокруг оси X (в градусах)
+  double m_zoom;  // Масштаб отображения
+  bool m_showFieldLines; // Флаг показа силовых линий
+  bool m_showEquipotentials; // Флаг показа эквипотенциалей
+
+  QPoint m_lastMousePos; // Последняя позиция курсора мыши
+
+  // Функция проекции 3D точки на 2D экран
+  QPointF project(const Point3D &p, int width, int height) const;
+
+  // Отрисовка координатных осей
+  void drawAxes(QPainter &painter, int w, int h);
+
+  // Отрисовка каркаса единичной сферы (1-й октант)
+  void drawSphereWireframe(QPainter &painter, int w, int h);
+
+  // Отрисовка силовых линий векторного поля a
+  void drawFieldLines(QPainter &painter, int w, int h);
+
+  // Отрисовка эквипотенциальных линий поля b
+  void drawEquipotentials(QPainter &painter, int w, int h);
+};
+
+#endif // VISUALIZER_H
+
+\end{listing}
+\normalsize
+\pagebreak

@@ -1,0 +1,15 @@
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/obj/Debug/net8.0/hello-304.GeneratedMSBuildEditorConfig.editorconfig
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/obj/Debug/net8.0/hello-304.AssemblyInfoInputs.cache
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/obj/Debug/net8.0/hello-304.AssemblyInfo.cs
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/obj/Debug/net8.0/hello-304.csproj.CoreCompileInputs.cache
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/obj/Debug/net8.0/hello-304.sourcelink.json
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/bin/Debug/net8.0/hello-304
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/bin/Debug/net8.0/hello-304.deps.json
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/bin/Debug/net8.0/hello-304.runtimeconfig.json
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/bin/Debug/net8.0/hello-304.dll
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/bin/Debug/net8.0/hello-304.pdb
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/obj/Debug/net8.0/hello-304.dll
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/obj/Debug/net8.0/refint/hello-304.dll
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/obj/Debug/net8.0/hello-304.pdb
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/obj/Debug/net8.0/hello-304.genruntimeconfig.cache
+/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/obj/Debug/net8.0/ref/hello-304.dll

@@ -1,0 +1,8 @@
+c - g++ hello-304.c -o hello-304
+c++ - g++ hello-304.cpp -o hello-304
+f# - dotnet run hello-304.fs
+js - node hello-304.js
+py - python hello-304.py
+ts - node hello-304.ts
+c# - dotnet run hello-304.cs
+go - go run hello-304.go

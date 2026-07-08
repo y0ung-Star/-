@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Навигатор по технологической практике</title>
+    <style>
+        :root {
+            /* Tokyo Night Color Palette */
+            --bg-color: #1a1b26;
+            --surface-color: #24283b;
+            --primary-color: #7aa2f7;
+            --secondary-color: #bb9af7;
+            --text-main: #c0caf5;
+            --text-muted: #9aa5ce;
+            --accent-green: #9ece6a;
+            --accent-red: #f7768e;
+            --accent-yellow: #e0af68;
+            --accent-orange: #ff9e64;
+            --border-color: #414868;
+            
+            /* Material Design / Fluid properties */
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-color);
+            transform: translateY(-5px);
+        }
+
+        /* Timeline specific styles */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 0.25rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            border: 2px solid var(--bg-color);
+        }
+        
+        .timeline-item.done::before {
+            background-color: var(--accent-green);
+        }
+        
+        .timeline-item.current::before {
+            background-color: var(--accent-yellow);
+            box-shadow: 0 0 10px var(--accent-yellow);
+        }
+
+        .date {
+            font-weight: bold;
+            color: var(--accent-orange);
+            margin-bottom: 0.25rem;
+            display: inline-block;
+        }
+
+        /* File list styles */
+        ul {
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .filepath {
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            word-break: break-all;
+            margin-top: 0.25rem;
+            background: rgba(0,0,0,0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .tag.gost { background-color: rgba(122, 162, 247, 0.2); color: var(--primary-color); }
+        .tag.code { background-color: rgba(158, 206, 106, 0.2); color: var(--accent-green); }
+        .tag.doc { background-color: rgba(187, 154, 247, 0.2); color: var(--secondary-color); }
+        .tag.warning { background-color: rgba(247, 118, 142, 0.2); color: var(--accent-red); }
+
+        .warning-box {
+            background-color: rgba(247, 118, 142, 0.1);
+            border-left: 4px solid var(--accent-red);
+            padding: 1rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            margin-top: 1rem;
+        }
+        
+        .warning-box h3 {
+            color: var(--accent-red);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Навигатор: Технологическая практика (Вар. 5)</h1>
+    
+    <div class="card full-width" style="margin-bottom: 2rem;">
+        <h2>Общая информация</h2>
+        <p><strong>Студент:</strong> Егоров Александр Владиславович (М3О-225БВ-24)</p>
+        <p><strong>Преподаватель:</strong> Машкин М.Н.</p>
+        <p><strong>Статус проекта:</strong> <span style="color: var(--accent-green); font-weight: bold;">ГОТОВО 100%</span> (Требуются только мелкие ручные правки скриншотов)</p>
+        <p>Этот документ — твоя главная шпаргалка. Здесь расписано, в какие даты что показывать преподавателю, где лежат нужные файлы и какие есть подводные камни.</p>
+    </div>
+
+    <div class="container">
+        
+        <!-- График сдач -->
+        <div class="card">
+            <h2>📅 График сдач (Что и когда нести)</h2>
+            <div class="timeline">
+                
+                <div class="timeline-item done">
+                    <span class="date">29.06 - 01.07 (Прошло)</span>
+                    <p>Выдача задания, разработка ТЗ.</p>
+                    <span class="filepath">tp-deliverables/04-latex-docs/gost_19.201-78.pdf</span>
+                </div>
+
+                <div class="timeline-item current">
+                    <span class="date">02.07.26 (Завтра)</span>
+                    <p><strong>Доклад по ЕСПД + Формализация задачи.</strong></p>
+                    <ul>
+                        <li>Выступаешь с презентацией (читаешь речь из шпаргалки).
+                            <span class="filepath">tp-deliverables/01-init-and-standards/presentation/presentation.pdf</span>
+                            <span class="filepath">tp-deliverables/01-init-and-standards/presentation/speech_notes.md</span>
+                        </li>
+                        <li>Показываешь математический расчет (векторы a и b, ротор, дивергенция).
+                            <span class="filepath">tp-deliverables/02-field-theory/02_field_theory_solution.md</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="date">08.07.26</span>
+                    <p><strong>Схемы алгоритмов + Описание программы.</strong></p>
+                    <ul>
+                        <li>Сдаешь документ "Описание программы". В нем уже есть блок-схемы.
+                            <span class="filepath">tp-deliverables/04-latex-docs/gost_19.402-78.pdf</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="date">09.07.26</span>
+                    <p><strong>Текст программы + Документация.</strong></p>
+                    <ul>
+                        <li>Показываешь исходный код на C++ (Qt).
+                            <span class="filepath">tp-deliverables/03-cpp-program/</span>
+                        </li>
+                        <li>Сдаешь "Текст программы" (ГОСТ с вшитым твоим кодом).
+                            <span class="filepath">tp-deliverables/04-latex-docs/gost_19.401-78.pdf</span>
+                        </li>
+                        <li>Сдаешь Спецификацию и Ведомость.
+                            <span class="filepath">tp-deliverables/04-latex-docs/gost_19.601-78.pdf</span>
+                            <span class="filepath">tp-deliverables/04-latex-docs/gost_19.101-77.pdf</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="date">15.07.26</span>
+                    <p><strong>Тестирование + Мануалы.</strong></p>
+                    <ul>
+                        <li>Демонстрируешь работу программы (запускаешь FieldViz).</li>
+                        <li>Сдаешь "Программу и методику испытаний".
+                            <span class="filepath">tp-deliverables/04-latex-docs/gost_19.301-79.pdf</span>
+                        </li>
+                        <li>Сдаешь все руководства (Программиста, Оператора, Системного, Применения).
+                            <span class="filepath">tp-deliverables/04-latex-docs/gost_19.50*.pdf</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="date">16.07.26</span>
+                    <p><strong>Составление отчёта.</strong></p>
+                    <ul>
+                        <li>Сдаешь итоговый академический отчет.
+                            <span class="filepath">tp-deliverables/05-report-and-journal/report.pdf</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="date">23.07.26 (ФИНАЛ)</span>
+                    <p><strong>Зачёт 🏁</strong></p>
+                    <ul>
+                        <li>Приносишь распечатанный и <strong>подписанный</strong> тобой журнал.
+                            <span class="filepath">tp-deliverables/05-report-and-journal/filled_journal_practice.docx</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Карта файлов -->
+        <div class="card">
+            <h2>📁 Карта директорий (Где что лежит)</h2>
+            <p>Вся чистовая работа лежит в папке <code>tp-deliverables/</code>.</p>
+            
+            <ul>
+                <li>
+                    <strong>01-init-and-standards/</strong> <span class="tag doc">Презентация</span>
+                    <span class="text-muted">Лежит PDF презентации для доклада 02.07 и шпаргалка с речью.</span>
+                </li>
+                <li>
+                    <strong>02-field-theory/</strong> <span class="tag doc">Математика</span>
+                    <span class="text-muted">Решение теории поля по варианту 5 (Markdown).</span>
+                </li>
+                <li>
+                    <strong>03-cpp-program/</strong> <span class="tag code">C++ Qt</span>
+                    <span class="text-muted">Исходники программы FieldViz. Именно эту папку надо открывать в Qt Creator / IDE для запуска.</span>
+                </li>
+                <li>
+                    <strong>04-latex-docs/</strong> <span class="tag gost">ЕСПД ГОСТ</span>
+                    <span class="text-muted">Самая важная папка. Содержит исходники LaTeX (по папкам) и уже 12 скомпилированных PDF-файлов (ГОСТов).</span>
+                </li>
+                <li>
+                    <strong>05-report-and-journal/</strong> <span class="tag doc">Итог</span>
+                    <span class="text-muted">Итоговый отчет (report.pdf) и Журнал практики (DOCX) для распечатки на зачет.</span>
+                </li>
+            </ul>
+
+            <div class="warning-box">
+                <h3>⚠️ Подводные камни (ЧТО НУЖНО ДОДЕЛАТЬ РУКАМИ)</h3>
+                <p>Несмотря на то, что тексты, титульники, ФИО и формулы мы заменили на твои, <strong>скриншоты интерфейса и блок-схемы в ГОСТ-документах остались от твоего одногруппника (Евстифеева)</strong>.</p>
+                <ol style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-main);">
+                    <li>Запусти свою программу на C++ из папки <code>03-cpp-program</code>.</li>
+                    <li>Сделай скриншоты <strong>своего</strong> интерфейса.</li>
+                    <li>Пройдись по подпапкам внутри <code>04-latex-docs/</code> (например, в <em>Руководство оператора/pics/</em>, <em>Описание программы/pics/</em>, <em>Пояснительная записка/pics/</em>).</li>
+                    <li>Замени старые скриншоты Евстифеева своими картинками.</li>
+                    <li><strong>ОБЯЗАТЕЛЬНО:</strong> После замены картинок открой терминал в папке <code>04-latex-docs</code> и запусти команду <br><code style="color: var(--primary-color);">python3 compile_docs.py</code><br>Это заново пересоберет все 12 PDF файлов, чтобы твои новые картинки вставились в текст!</li>
+                </ol>
+                <p style="margin-top: 1rem;">Также проверь <strong>Отчет</strong> (<code>05-report-and-journal/report.tex</code>) — если препод требует скриншоты и туда, их надо будет добавить руками.</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

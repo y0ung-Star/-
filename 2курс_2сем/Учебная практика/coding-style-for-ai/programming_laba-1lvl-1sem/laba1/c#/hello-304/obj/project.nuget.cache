@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "N/xYpliUE5UTeAshb+Y87XzcC2EEGVuHle74knXWERxvluxOMP4vd9DAQ1t+5pAZIzMKZ/QKaULMlSsDmkK4UA==",
+  "success": true,
+  "projectFilePath": "/home/swrneko/Projects/mai_shit/programming_laba/nov_6_2024/c#/hello-304/hello-304.csproj",
+  "expectedPackageFiles": [
+    "/home/swrneko/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.10/microsoft.aspnetcore.app.ref.8.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}
